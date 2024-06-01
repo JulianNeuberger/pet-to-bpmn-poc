@@ -1,0 +1,109 @@
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="definitions_508f7d8a-04f4-4f68-8db0-6874baa7ee9f" targetNamespace="https://camunda.org/examples" exporter="Camunda Web Modeler" exporterVersion="f22cba6" camunda:diagramRelationId="82e46b21-7def-4ac9-84c4-1d84cbbe7fc8">
+  <collaboration id="collaboration_0234c3ed-6117-4101-b9d6-273c1b2a2a56" isClosed="false">
+    <participant id="participant_078a754e-acd7-42ac-9300-65909c8d881d" name="Unknown" processRef="process_d1d5f1ba-2237-47ed-86ed-79a62cab9e83" />
+    <participant id="participant_d7be5135-dacd-4b1a-a9d2-3a2418b49ad2" name="I" processRef="process_40190aac-0044-496a-a571-12cb91b07f91" />
+    <messageFlow id="Flow_0a0fn5c" sourceRef="task_18aa709d-f416-450b-bcfc-20d3e0941869" targetRef="task_4e657167-2f07-4229-94c5-38e332376190" />
+    <messageFlow id="Flow_1qtlnaf" sourceRef="task_e3894a2d-4d14-4124-9458-c5db0a65f996" targetRef="task_18aa709d-f416-450b-bcfc-20d3e0941869" />
+  </collaboration>
+  <bpmn:process id="Process_04deel4" isExecutable="true">
+    <bpmn:task id="Activity_0k76b8r" name="first lane 2">
+      <bpmn:incoming>Flow_1s5jpht</bpmn:incoming>
+      <bpmn:outgoing>Flow_02gahah</bpmn:outgoing>
+      <bpmn:property id="Property_0o8qw8l" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0nk77rb">
+        <bpmn:sourceRef>DataObjectReference_021z9bz</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0o8qw8l</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:task>
+    <bpmn:task id="Activity_1plpixl" name="first lane 1">
+      <bpmn:incoming>Flow_1f6mmxu</bpmn:incoming>
+      <bpmn:outgoing>Flow_1s5jpht</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0adwv9m">
+        <bpmn:targetRef>DataObjectReference_021z9bz</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1f6mmxu</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:dataObjectReference id="DataObjectReference_021z9bz" name="test object" dataObjectRef="DataObject_0kxcj7k" />
+    <bpmn:dataObject id="DataObject_0kxcj7k" />
+    <bpmn:exclusiveGateway id="Gateway_1d94apc">
+      <bpmn:incoming>Flow_02gahah</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vc9dp3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jp5sv0</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Activity_1j8eyvd" name="first option">
+      <bpmn:incoming>Flow_0vc9dp3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ig9xk6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_065j9di" name="second option">
+      <bpmn:incoming>Flow_0jp5sv0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gga3fu</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_126p7s0" name="join">
+      <bpmn:incoming>Flow_1nxjl33</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_04ec6cb">
+      <bpmn:incoming>Flow_1gga3fu</bpmn:incoming>
+      <bpmn:incoming>Flow_17v7bvz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nxjl33</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_00pel0l">
+      <bpmn:incoming>Flow_0ig9xk6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1474qjt</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1k4p0jj</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1s5jpht" sourceRef="Activity_1plpixl" targetRef="Activity_0k76b8r" />
+    <bpmn:sequenceFlow id="Flow_02gahah" sourceRef="Activity_0k76b8r" targetRef="Gateway_1d94apc" />
+    <bpmn:sequenceFlow id="Flow_1f6mmxu" sourceRef="StartEvent_1" targetRef="Activity_1plpixl" />
+    <bpmn:sequenceFlow id="Flow_0vc9dp3" name="condition 1" sourceRef="Gateway_1d94apc" targetRef="Activity_1j8eyvd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=1</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0jp5sv0" name="condition 2" sourceRef="Gateway_1d94apc" targetRef="Activity_065j9di">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=2</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0ig9xk6" sourceRef="Activity_1j8eyvd" targetRef="Gateway_00pel0l" />
+    <bpmn:sequenceFlow id="Flow_1gga3fu" sourceRef="Activity_065j9di" targetRef="Gateway_04ec6cb" />
+    <bpmn:sequenceFlow id="Flow_1nxjl33" sourceRef="Gateway_04ec6cb" targetRef="Activity_126p7s0" />
+    <bpmn:sequenceFlow id="Flow_1474qjt" sourceRef="Gateway_00pel0l" targetRef="Activity_0y6vp1q">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=1</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:task id="Activity_0y6vp1q">
+      <bpmn:incoming>Flow_1474qjt</bpmn:incoming>
+      <bpmn:outgoing>Flow_0x5kk9n</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0x5kk9n" sourceRef="Activity_0y6vp1q" targetRef="Gateway_097063f" />
+    <bpmn:exclusiveGateway id="Gateway_097063f">
+      <bpmn:incoming>Flow_0x5kk9n</bpmn:incoming>
+      <bpmn:incoming>Flow_0rorvfx</bpmn:incoming>
+      <bpmn:outgoing>Flow_17v7bvz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_17v7bvz" sourceRef="Gateway_097063f" targetRef="Gateway_04ec6cb" />
+    <bpmn:sequenceFlow id="Flow_1k4p0jj" sourceRef="Gateway_00pel0l" targetRef="Activity_1ib008i">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=2</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:task id="Activity_1ib008i">
+      <bpmn:incoming>Flow_1k4p0jj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rorvfx</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0rorvfx" sourceRef="Activity_1ib008i" targetRef="Gateway_097063f" />
+  </bpmn:process>
+  <bpmn:process id="Process_07209w4" isExecutable="false">
+    <bpmn:task id="Activity_1ifqk2o" name="other lane 2">
+      <bpmn:incoming>Flow_1nez221</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="Activity_1wocrvl" name="other lane 1">
+      <bpmn:outgoing>Flow_1nez221</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1nez221" sourceRef="Activity_1wocrvl" targetRef="Activity_1ifqk2o" />
+  </bpmn:process>
+  <bpmn:process id="Process_1ha8jnx" isExecutable="false">
+    <bpmn:task id="Activity_025xnrl" name="other lane 1">
+      <bpmn:outgoing>Flow_1ef2jnm</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_08zk5j0" name="other lane 2">
+      <bpmn:incoming>Flow_1ef2jnm</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1ef2jnm" sourceRef="Activity_025xnrl" targetRef="Activity_08zk5j0" />
+  </bpmn:process>
+</bpmn:definitions>

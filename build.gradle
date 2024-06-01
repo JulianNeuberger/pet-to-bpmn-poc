@@ -1,0 +1,70 @@
+plugins {
+    id("java")
+    id("application")
+}
+
+group = "org.example"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+
+    // https://mvnrepository.com/artifact/org.camunda.bpm.model/camunda-bpmn-model
+    implementation("org.camunda.bpm.model:camunda-bpmn-model:7.19.0")
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation("com.fasterxml.jackson.core:jackson-core:2.17.0")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
+
+    // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
+    implementation("org.eclipse.jetty:jetty-server:11.0.20")
+    // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlet
+    implementation("org.eclipse.jetty:jetty-servlet:11.0.20")
+    // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlets
+    implementation("org.eclipse.jetty:jetty-servlets:11.0.20")
+
+
+    // https://mvnrepository.com/artifact/org.activiti/activiti-crystalball
+    implementation("org.activiti:activiti-crystalball:6.0.0")
+}
+
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "http.SimpleHttpServer"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task standalone(type: Jar) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    archivesBaseName = "standalone-bpmn-layouter"
+
+    manifest {
+        attributes "Main-Class": "http.SimpleHttpServer"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}

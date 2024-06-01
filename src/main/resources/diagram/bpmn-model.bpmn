@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions id="definitions_80eb5119-a4d6-413e-922f-c1e48c6f4e5c" targetNamespace="https://camunda.org/examples" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <collaboration id="collaboration_6f8e2f0d-510d-497d-b303-9c5188859f58">
+    <participant id="participant_a263dbae-f28a-41e8-b059-ee321b202ed4" name="I" processRef="process_2450b128-6ae7-4645-89a4-3409040a2424"/>
+  </collaboration>
+  <process id="process_2450b128-6ae7-4645-89a4-3409040a2424">
+    <task id="task_893acc23-b974-4cca-9f42-0f4a7ae0453c" name="detected a number of personnel requirements">
+      <outgoing>sequenceFlow_e4b0a692-1ab5-40e7-a6ea-5bda961ac987</outgoing>
+    </task>
+    <task id="task_6b0d9561-bd38-4d5f-b9c7-cf237d8f2f18" name="report the vacancy">
+      <incoming>sequenceFlow_e4b0a692-1ab5-40e7-a6ea-5bda961ac987</incoming>
+      <outgoing>sequenceFlow_77c9f2aa-6462-4db1-ade6-fa76e45cf410</outgoing>
+    </task>
+    <task id="task_def28264-f1b1-4d61-9288-c6bfdaac3456" name="get it">
+      <incoming>sequenceFlow_77c9f2aa-6462-4db1-ade6-fa76e45cf410</incoming>
+      <incoming>sequenceFlow_f78a86fc-d5db-4e8b-af0c-571c6f8bf4ff</incoming>
+      <outgoing>sequenceFlow_7e49561d-c311-4d3e-b5fa-ffc8b5ff66ba</outgoing>
+    </task>
+    <task id="task_501bc4a8-7e6a-42bc-9d0a-8c8f7c7f370d" name="ask corrections">
+      <incoming>sequenceFlow_66289782-657f-409d-94d7-806ba1036cd0</incoming>
+      <outgoing>sequenceFlow_f78a86fc-d5db-4e8b-af0c-571c6f8bf4ff</outgoing>
+    </task>
+    <task id="task_cf760a20-caf7-4ac1-ae15-61daec5c6906" name="approve it">
+      <incoming>sequenceFlow_11f93d7d-c90c-4d0a-a806-171276298b1e</incoming>
+      <outgoing>sequenceFlow_46d919d2-4b6f-4215-96f4-e2a1e33f3956</outgoing>
+    </task>
+    <task id="task_9e40c343-6027-44ea-9f83-ed3b7b7942da" name="advertized it">
+      <incoming>sequenceFlow_46d919d2-4b6f-4215-96f4-e2a1e33f3956</incoming>
+    </task>
+    <exclusiveGateway id="exclusiveGateway_8fdecdfb-9654-483c-ba15-63fa69f6c1cd">
+      <incoming>sequenceFlow_7e49561d-c311-4d3e-b5fa-ffc8b5ff66ba</incoming>
+      <outgoing>sequenceFlow_66289782-657f-409d-94d7-806ba1036cd0</outgoing>
+      <outgoing>sequenceFlow_11f93d7d-c90c-4d0a-a806-171276298b1e</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="sequenceFlow_e4b0a692-1ab5-40e7-a6ea-5bda961ac987" name="" sourceRef="task_893acc23-b974-4cca-9f42-0f4a7ae0453c" targetRef="task_6b0d9561-bd38-4d5f-b9c7-cf237d8f2f18"/>
+    <sequenceFlow id="sequenceFlow_77c9f2aa-6462-4db1-ade6-fa76e45cf410" name="" sourceRef="task_6b0d9561-bd38-4d5f-b9c7-cf237d8f2f18" targetRef="task_def28264-f1b1-4d61-9288-c6bfdaac3456"/>
+    <sequenceFlow id="sequenceFlow_7e49561d-c311-4d3e-b5fa-ffc8b5ff66ba" name="" sourceRef="task_def28264-f1b1-4d61-9288-c6bfdaac3456" targetRef="exclusiveGateway_8fdecdfb-9654-483c-ba15-63fa69f6c1cd"/>
+    <sequenceFlow id="sequenceFlow_66289782-657f-409d-94d7-806ba1036cd0" name="Under certain circumstances" sourceRef="exclusiveGateway_8fdecdfb-9654-483c-ba15-63fa69f6c1cd" targetRef="task_501bc4a8-7e6a-42bc-9d0a-8c8f7c7f370d"/>
+    <sequenceFlow id="sequenceFlow_f78a86fc-d5db-4e8b-af0c-571c6f8bf4ff" name="" sourceRef="task_501bc4a8-7e6a-42bc-9d0a-8c8f7c7f370d" targetRef="task_def28264-f1b1-4d61-9288-c6bfdaac3456"/>
+    <sequenceFlow id="sequenceFlow_11f93d7d-c90c-4d0a-a806-171276298b1e" name="otherwise" sourceRef="exclusiveGateway_8fdecdfb-9654-483c-ba15-63fa69f6c1cd" targetRef="task_cf760a20-caf7-4ac1-ae15-61daec5c6906"/>
+    <sequenceFlow id="sequenceFlow_46d919d2-4b6f-4215-96f4-e2a1e33f3956" name="" sourceRef="task_cf760a20-caf7-4ac1-ae15-61daec5c6906" targetRef="task_9e40c343-6027-44ea-9f83-ed3b7b7942da"/>
+  </process>
+</definitions>
