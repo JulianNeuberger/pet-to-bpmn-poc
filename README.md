@@ -1,7 +1,7 @@
 # Simple PET to BPMN conversion server
 
 Proof of concept implementation of a process model generation algorithm, using PET as input
-and BPMN as output. This code is part of our paper at ER conference 2024.
+and BPMN as output.
 
 ![](withDiag.png)
 
